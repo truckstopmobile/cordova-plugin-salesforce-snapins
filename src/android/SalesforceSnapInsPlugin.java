@@ -35,8 +35,6 @@ import com.salesforce.android.chat.ui.model.PreChatPickListField;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
-
 public class SalesforceSnapInsPlugin extends CordovaPlugin {
 
     private ChatConfiguration.Builder liveAgentChatConfigBuilder;
