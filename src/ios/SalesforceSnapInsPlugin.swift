@@ -4,7 +4,6 @@
 //
 //  Created by BAGGIO Matteo on 07/08/18.
 //
-
 import Foundation
 import UserNotifications
 import ServiceCore
@@ -46,7 +45,6 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
     private var liveAgentChatConfig: SCSChatConfiguration?
 
     // TODO: here add SOS and Case management configuration
-
     override func pluginInitialize () {
         if #available(iOS 10.0, *) {
             let center = UNUserNotificationCenter.current()
@@ -79,12 +77,10 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
         }
 
         // TODO: here add SOS and Case management initializations
-
         self.commandDelegate!.send(CDVPluginResult(status: CDVCommandStatus_OK), callbackId: command.callbackId)
     }
 
     // MARK: - Live Agent Chat
-
     func initializeLiveAgentChat(_ options: Dictionary<String, Any>) -> String? {
 
         guard let liveAgentPod = options["liveAgentPod"] as? String else {
@@ -165,7 +161,6 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
         // TODO: customize font
         // let descriptor = UIFontDescriptor(fontAttributes: [UIFontDescriptor.AttributeName.family : "Proxima Nova"])
         // config.setFontDescriptor(descriptor, fontFileName: "ProximaNova-Light.otf", forWeight: SCFontWeightLight)
-
         ServiceCloud.shared().appearanceConfiguration = appearance
 
         return nil;
@@ -195,10 +190,10 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
             newTextField.isRequired = isRequired
             newTextField.keyboardType = UIKeyboardType(rawValue: keyboardType)!
             newTextField.autocorrectionType = UITextAutocorrectionType(rawValue: autocorrectionType)!
-            config.prechatFields.append(newTextField)
+            config.prechatFields.add(newTextField)
         case "hidden":
             let newHiddenField = SCSPrechatObject(label: label, value: value)
-            config.prechatFields.append(newHiddenField)
+            config.prechatFields.add(newHiddenField)
         case "picker":
             if values != nil {
                 let pickerOptions = NSMutableArray()
@@ -209,7 +204,7 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
                 }
                 let pickerField = SCSPrechatPickerObject(label: label, options: pickerOptions as NSArray as! [SCSPrechatPickerOption])
                 pickerField!.isRequired = isRequired
-                config.prechatFields.append(pickerField!)
+                config.prechatFields.add(pickerField!)
             }
         default:
             return self.commandDelegate!.send(CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Unknown field type \(type)"), callbackId: command.callbackId)
@@ -223,7 +218,7 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
             return self.commandDelegate!.send(CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Initialize plugin with liveAgentChat option before clear pre-chat fields"), callbackId: command.callbackId)
         }
         // Remove old pre-chat fields
-        config.prechatFields.removeAll()
+        config.prechatFields.removeAllObjects()
         self.commandDelegate!.send(CDVPluginResult(status: CDVCommandStatus_OK), callbackId: command.callbackId)
     }
 
@@ -265,7 +260,7 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
             }
         }
 
-        config.prechatEntities.append(newEntity)
+        config.prechatEntities.add(newEntity)
 
         self.commandDelegate!.send(CDVPluginResult(status: CDVCommandStatus_OK), callbackId: command.callbackId)
     }
@@ -275,12 +270,12 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
             return self.commandDelegate!.send(CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Initialize plugin with liveAgentChat option before clear pre-chat entities"), callbackId: command.callbackId)
         }
         // Remove old pre-chat fields
-        config.prechatEntities.removeAll()
+        config.prechatEntities.removeAllObjects()
         self.commandDelegate!.send(CDVPluginResult(status: CDVCommandStatus_OK), callbackId: command.callbackId)
     }
 
     @objc func openLiveAgentChat(_ command: CDVInvokedUrlCommand) {
-        let chat = ServiceCloud.shared().chatCore!
+        let chat = ServiceCloud.shared().chat!
         let config = self.liveAgentChatConfig!
         chat.startSession(with: config)
         let result: CDVPluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
@@ -288,7 +283,7 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
     }
 
     @objc func determineAvailability(_ command: CDVInvokedUrlCommand) {
-        let chat = ServiceCloud.shared().chatCore!
+        let chat = ServiceCloud.shared().chat!
         let config = self.liveAgentChatConfig!
         let commandDelegate = self.commandDelegate!
         chat.determineAvailability(with: config, completion: { (error: Error?, available: Bool) in
@@ -305,7 +300,6 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
     }
 
     // MARK: - UNUserNotificationCenterDelegate
-
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         // let chat = ServiceCloud.shared().chatUI!
