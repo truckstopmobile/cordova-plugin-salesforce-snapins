@@ -195,10 +195,10 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
             newTextField.isRequired = isRequired
             newTextField.keyboardType = UIKeyboardType(rawValue: keyboardType)!
             newTextField.autocorrectionType = UITextAutocorrectionType(rawValue: autocorrectionType)!
-            config.prechatFields.add(newTextField)
+            config.prechatFields.append(newTextField)
         case "hidden":
             let newHiddenField = SCSPrechatObject(label: label, value: value)
-            config.prechatFields.add(newHiddenField)
+            config.prechatFields.append(newHiddenField)
         case "picker":
             if values != nil {
                 let pickerOptions = NSMutableArray()
@@ -209,7 +209,7 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
                 }
                 let pickerField = SCSPrechatPickerObject(label: label, options: pickerOptions as NSArray as! [SCSPrechatPickerOption])
                 pickerField!.isRequired = isRequired
-                config.prechatFields.add(pickerField!)
+                config.prechatFields.append(pickerField!)
             }
         default:
             return self.commandDelegate!.send(CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Unknown field type \(type)"), callbackId: command.callbackId)
@@ -223,7 +223,7 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
             return self.commandDelegate!.send(CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Initialize plugin with liveAgentChat option before clear pre-chat fields"), callbackId: command.callbackId)
         }
         // Remove old pre-chat fields
-        config.prechatFields.removeAllObjects()
+        config.prechatFields.removeAll();
         self.commandDelegate!.send(CDVPluginResult(status: CDVCommandStatus_OK), callbackId: command.callbackId)
     }
 
@@ -265,7 +265,7 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
             }
         }
 
-        config.prechatEntities.add(newEntity)
+        config.prechatEntities.append(newEntity)
 
         self.commandDelegate!.send(CDVPluginResult(status: CDVCommandStatus_OK), callbackId: command.callbackId)
     }
@@ -275,12 +275,12 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
             return self.commandDelegate!.send(CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Initialize plugin with liveAgentChat option before clear pre-chat entities"), callbackId: command.callbackId)
         }
         // Remove old pre-chat fields
-        config.prechatEntities.removeAllObjects()
+        config.prechatEntities.removeAll()
         self.commandDelegate!.send(CDVPluginResult(status: CDVCommandStatus_OK), callbackId: command.callbackId)
     }
 
     @objc func openLiveAgentChat(_ command: CDVInvokedUrlCommand) {
-        let chat = ServiceCloud.shared().chat!
+        let chat = ServiceCloud.shared().chatCore!
         let config = self.liveAgentChatConfig!
         chat.startSession(with: config)
         let result: CDVPluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
@@ -288,7 +288,7 @@ func hexStringToUIColor(_ hex: String) -> UIColor {
     }
 
     @objc func determineAvailability(_ command: CDVInvokedUrlCommand) {
-        let chat = ServiceCloud.shared().chat!
+        let chat = ServiceCloud.shared().chatCore!
         let config = self.liveAgentChatConfig!
         let commandDelegate = self.commandDelegate!
         chat.determineAvailability(with: config, completion: { (error: Error?, available: Bool) in

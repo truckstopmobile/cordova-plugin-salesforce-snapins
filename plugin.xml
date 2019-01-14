@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova-plugin-salesforce-snapins" version="1.0.2"
-xmlns="http://apache.org/cordova/ns/plugins/1.0"
-xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="cordova-plugin-salesforce-snapins" version="1.0.2" 
+	xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+	xmlns:android="http://schemas.android.com/apk/res/android">
 	<name>Snap-ins Salseforce</name>
 	<description>Plugin for SalesForce Snap-ins</description>
 	<author>Matteo Baggio</author>
@@ -19,7 +19,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
 	</js-module>
 
 	<platform name="android">
-		<dependency id="cordova-plugin-android-fragmentactivity" url="https://github.com/SonoIo/cordova-plugin-android-fragmentactivity" commit="master" />
+		<dependency id="cordova-plugin-android-fragmentactivity" url="https://github.com/truckstopmobile/cordova-plugin-android-fragmentactivity" commit="master" />
 
 		<config-file parent="/*" target="res/xml/config.xml">
 			<feature name="SalesforceSnapInsPlugin">
@@ -46,13 +46,13 @@ xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<platform name="ios">
 		<dependency id="cordova-plugin-add-swift-support" version="~1.7.0" />
-		<dependency id="cordova-plugin-cocoapod-support" version="~1.3.0" />
+		<dependency id="cordova-plugin-cocoapod-support" version="~1.6.0" />
 
-		<pods-config ios-min-version="9.0" use-frameworks="true">
+		<pods-config ios-min-version="10.0" use-frameworks="true">
 			<source url="https://github.com/CocoaPods/Specs.git" />
 			<source url="https://github.com/goinstant/pods-specs-public" />
 		</pods-config>
-		<pod name="ServiceSDK" spec="214.0.3" />
+		<pod name="ServiceSDK" spec="216.0.1" />
 
 		<config-file parent="/*" target="config.xml">
 			<feature name="SalesforceSnapInsPlugin">
