@@ -1,4 +1,3 @@
-var cordova = require('cordova');
 var exec    = require('cordova/exec');
 
 function successCallback() {}
