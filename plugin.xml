@@ -48,7 +48,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
 		<dependency id="cordova-plugin-add-swift-support" version="~2.0.2" />
 		<dependency id="cordova-plugin-cocoapod-support" url="https://github.com/deepanjali11/cordova-plugin-cocoapods-support.git" commit="master" />
 		<pods-config ios-min-version="9.0" use-frameworks="true">
-			<source url="https://github.com/CocoaPods/Specs.git" />
+			<source url="https://cdn.cocoapods.org/" />
 			<source url="https://github.com/goinstant/pods-specs-public" />
 		</pods-config>
 		<pod name="ServiceSDK" spec="218.0.1" />
